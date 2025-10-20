@@ -1,0 +1,237 @@
+#!/usr/bin/env python3
+"""E2E test for Phase 2: Availability Checking.
+
+Tests:
+1. Conflict detection when booking occupied time slot
+2. Alternative time suggestion
+3. Successful booking at alternative time
+4. Business hours validation
+"""
+
+import json
+import os
+import sys
+from datetime import datetime, timedelta
+from pathlib import Path
+
+import boto3
+
+# Add project root to path
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+# Configuration
+REGION = os.environ.get("AWS_REGION", "us-east-1")
+RUNTIME_ARN = os.environ.get("AGENTCORE_RUNTIME_ARN")
+
+if not RUNTIME_ARN:
+    print("❌ AGENTCORE_RUNTIME_ARN not set in environment")
+    sys.exit(1)
+
+
+def invoke_agent(prompt: str, actor_id: str = "test-user", session_id: str = None) -> dict:
+    """Invoke AgentCore agent directly."""
+    client = boto3.client("bedrock-agentcore", region_name=REGION)
+
+    payload = {"prompt": prompt, "actor_id": actor_id}
+    if session_id:
+        payload["session_id"] = session_id
+
+    response = client.invoke_agent_runtime(
+        agentRuntimeArn=RUNTIME_ARN, payload=json.dumps(payload).encode("utf-8")
+    )
+
+    result = json.loads(response["payload"].read().decode("utf-8"))
+    return result
+
+
+def test_conflict_detection():
+    """Test 1: Agent detects booking conflict."""
+    print("\n" + "=" * 60)
+    print("Test 1: Conflict Detection")
+    print("=" * 60)
+
+    # Calculate tomorrow at 8pm (should conflict with existing booking)
+    tomorrow = datetime.now() + timedelta(days=1)
+    tomorrow_str = tomorrow.strftime("%Y-%m-%d")
+
+    prompt = f"I want to book a table for {tomorrow_str} at 8pm for 2 people. My name is Jane Doe, phone +23099999999"
+
+    print(f"\n📤 Request: {prompt}")
+
+    result = invoke_agent(prompt)
+    response = result.get("result", "")
+
+    print(f"📥 Response: {response}\n")
+
+    # Verify conflict detection
+    conflict_indicators = [
+        "not available",
+        "unavailable",
+        "already",
+        "conflict",
+        "occupied",
+        "booked",
+    ]
+
+    if any(indicator in response.lower() for indicator in conflict_indicators):
+        print("✅ PASS: Agent detected conflict")
+        return True, result.get("session_id")
+    print("❌ FAIL: Agent did not detect conflict")
+    return False, None
+
+
+def test_alternative_suggestion(session_id: str):
+    """Test 2: Agent suggests alternative time."""
+    print("\n" + "=" * 60)
+    print("Test 2: Alternative Time Suggestion")
+    print("=" * 60)
+
+    # Check if previous response suggested an alternative
+    # For this test, we'll accept the alternative
+    prompt = "Yes, that works for me"
+
+    print(f"\n📤 Request: {prompt}")
+
+    result = invoke_agent(prompt, session_id=session_id)
+    response = result.get("result", "")
+
+    print(f"📥 Response: {response}\n")
+
+    # Verify booking was created
+    success_indicators = [
+        "created",
+        "confirmed",
+        "booked",
+        "reservation",
+        "successfully",
+    ]
+
+    if any(indicator in response.lower() for indicator in success_indicators):
+        print("✅ PASS: Booking created at alternative time")
+        return True
+    print("❌ FAIL: Booking not created")
+    return False
+
+
+def test_available_slot():
+    """Test 3: Booking succeeds for available time slot."""
+    print("\n" + "=" * 60)
+    print("Test 3: Available Slot Booking")
+    print("=" * 60)
+
+    # Try booking at an unusual time (likely available)
+    tomorrow = datetime.now() + timedelta(days=1)
+    tomorrow_str = tomorrow.strftime("%Y-%m-%d")
+
+    prompt = f"Book a table for {tomorrow_str} at 2:30pm for 3 people. Name: Test User, phone +23011111111"
+
+    print(f"\n📤 Request: {prompt}")
+
+    result = invoke_agent(prompt, actor_id="test-user-2")
+    response = result.get("result", "")
+
+    print(f"📥 Response: {response}\n")
+
+    # Should either create booking or check availability first
+    if "created" in response.lower() or "available" in response.lower():
+        print("✅ PASS: Agent handled available slot correctly")
+        return True
+    print("⚠️  WARN: Unexpected response")
+    return False
+
+
+def test_business_hours():
+    """Test 4: Agent validates business hours."""
+    print("\n" + "=" * 60)
+    print("Test 4: Business Hours Validation")
+    print("=" * 60)
+
+    # Try booking outside business hours (e.g., 2am)
+    tomorrow = datetime.now() + timedelta(days=1)
+    tomorrow_str = tomorrow.strftime("%Y-%m-%d")
+
+    prompt = (
+        f"Book a table for {tomorrow_str} at 2am for 2 people. Name: Night Owl, phone +23022222222"
+    )
+
+    print(f"\n📤 Request: {prompt}")
+
+    result = invoke_agent(prompt, actor_id="test-user-3")
+    response = result.get("result", "")
+
+    print(f"📥 Response: {response}\n")
+
+    # Should reject or suggest alternative within business hours
+    rejection_indicators = [
+        "closed",
+        "not open",
+        "business hours",
+        "operating hours",
+        "11",  # Should mention opening time
+    ]
+
+    if any(indicator in response.lower() for indicator in rejection_indicators):
+        print("✅ PASS: Agent validated business hours")
+        return True
+    print("⚠️  WARN: Agent may not have validated business hours")
+    return False
+
+
+def main():
+    """Run all E2E tests."""
+    print("\n" + "=" * 60)
+    print("Phase 2: Availability Checking - E2E Tests")
+    print("=" * 60)
+    print(f"Runtime: {RUNTIME_ARN}")
+    print(f"Region: {REGION}")
+
+    results = []
+
+    # Test 1: Conflict detection
+    test1_pass, session_id = test_conflict_detection()
+    results.append(("Conflict Detection", test1_pass))
+
+    # Test 2: Alternative suggestion (only if test 1 passed)
+    if test1_pass and session_id:
+        test2_pass = test_alternative_suggestion(session_id)
+        results.append(("Alternative Suggestion", test2_pass))
+
+    # Test 3: Available slot
+    test3_pass = test_available_slot()
+    results.append(("Available Slot", test3_pass))
+
+    # Test 4: Business hours
+    test4_pass = test_business_hours()
+    results.append(("Business Hours", test4_pass))
+
+    # Summary
+    print("\n" + "=" * 60)
+    print("Test Summary")
+    print("=" * 60)
+
+    for test_name, passed in results:
+        status = "✅ PASS" if passed else "❌ FAIL"
+        print(f"{status}: {test_name}")
+
+    passed_count = sum(1 for _, passed in results if passed)
+    total_count = len(results)
+
+    print(f"\nTotal: {passed_count}/{total_count} tests passed")
+
+    if passed_count == total_count:
+        print("\n🎉 All tests passed!")
+        return 0
+    print(f"\n⚠️  {total_count - passed_count} test(s) failed")
+    return 1
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except Exception as e:
+        print(f"\n❌ Test suite failed: {e}")
+        import traceback
+
+        traceback.print_exc()
+        sys.exit(1)

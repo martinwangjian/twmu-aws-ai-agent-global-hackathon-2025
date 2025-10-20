@@ -1,0 +1,118 @@
+# Pre-commit hooks for Python Strands Agents + AWS CDK
+# Run: pre-commit install --install-hooks --hook-type pre-commit --hook-type commit-msg
+
+repos:
+  # Conventional Commits validation (replaces gitlint)
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.6.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args:
+          - feat
+          - fix
+          - docs
+          - style
+          - refactor
+          - test
+          - chore
+          - perf
+          - ci
+          - build
+
+  # Ruff - Fast Python linter and formatter (replaces black, flake8, isort, etc.)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      # Run the linter with auto-fix
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        types_or: [python, pyi]
+      # Run the formatter
+      - id: ruff-format
+        types_or: [python, pyi]
+
+  # Security: Detect hardcoded secrets (API keys, tokens, passwords)
+  # Note: Gitleaks disabled due to WASM compatibility issues on macOS
+  # Use detect-private-key hook below as fallback
+  # - repo: https://github.com/gitleaks/gitleaks
+  #   rev: v8.22.1
+  #   hooks:
+  #     - id: gitleaks
+
+  # Python type checking with mypy
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.13.0
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - types-requests
+          - types-PyYAML
+          - boto3-stubs[bedrock-runtime,lambda,apigateway,s3]
+        args: [--ignore-missing-imports, --python-version=3.11]
+        exclude: ^(tests/|docs/|cdk\.out/)
+
+  # AWS CDK and JSON/YAML formatting
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types_or: [json, yaml, markdown]
+        exclude: ^(cdk\.out/|\.aws-sam/|node_modules/)
+
+  # General pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        stages: [pre-commit]
+      - id: end-of-file-fixer
+        stages: [pre-commit]
+      - id: check-yaml
+        args: [--unsafe] # Allow custom YAML tags for CDK
+        stages: [pre-commit]
+      - id: check-json
+        stages: [pre-commit]
+      - id: check-toml
+        stages: [pre-commit]
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+        stages: [pre-commit]
+      - id: check-merge-conflict
+        stages: [pre-commit]
+      - id: check-case-conflict
+        stages: [pre-commit]
+      - id: detect-private-key
+        stages: [pre-commit]
+      - id: mixed-line-ending
+        args: [--fix=lf]
+        stages: [pre-commit]
+      - id: check-executables-have-shebangs
+        stages: [pre-commit]
+      - id: check-shebang-scripts-are-executable
+        stages: [pre-commit]
+
+  # Python-specific checks
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-check-blanket-noqa
+        stages: [pre-commit]
+      - id: python-check-blanket-type-ignore
+        stages: [pre-commit]
+      - id: python-use-type-annotations
+        stages: [pre-commit]
+      - id: python-check-mock-methods
+        stages: [pre-commit]
+
+# Configuration
+default_language_version:
+  python: python3.11
+
+default_install_hook_types: [pre-commit, commit-msg]
+
+ci:
+  autofix_commit_msg: "chore(pre-commit): auto fixes from hooks"
+  autofix_prs: true
+  autoupdate_commit_msg: "chore(deps): update pre-commit hooks"
+  autoupdate_schedule: weekly

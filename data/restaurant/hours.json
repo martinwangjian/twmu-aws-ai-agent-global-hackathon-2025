@@ -1,0 +1,50 @@
+{
+  "restaurant": "La Bella Vita",
+  "opening_hours": {
+    "monday": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed": false
+    },
+    "tuesday": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed": false
+    },
+    "wednesday": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed": false
+    },
+    "thursday": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed": false
+    },
+    "friday": {
+      "open": "11:00",
+      "close": "23:00",
+      "closed": false
+    },
+    "saturday": {
+      "open": "10:00",
+      "close": "23:00",
+      "closed": false
+    },
+    "sunday": {
+      "open": "10:00",
+      "close": "21:00",
+      "closed": false
+    }
+  },
+  "special_hours": {
+    "lunch_service": "11:00 - 15:00",
+    "dinner_service": "18:00 - closing",
+    "happy_hour": "17:00 - 19:00 (Friday and Saturday only)"
+  },
+  "notes": [
+    "Last orders taken 30 minutes before closing",
+    "Reservations recommended for Friday and Saturday evenings",
+    "Closed on public holidays - please call to confirm"
+  ]
+}

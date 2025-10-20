@@ -1,0 +1,95 @@
+# Credentials
+*.pem
+*.key
+*.p12
+*.pfx
+service-account-key.json
+gateway_config.json
+memory-config.json
+claude_desktop_config.json
+credentials.json
+token.json
+Q_CONTEXT_SUMMARY.md
+TESTING_INSTRUCTIONS.md
+PUBLIC_REPO_CHECKLIST.md
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# CDK
+cdk.out/
+.cdk.staging/
+cdk_infra/cdk.out/
+cdk_infra/cdk.out.*/
+cdk_infra/node_modules/
+cdk_infra/.venv/
+cdk_infra/*.js
+cdk_infra/*.d.ts
+cdk_infra/package-lock.json
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Build
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Lambda build artifacts
+lambda/package/
+lambda/*.zip
+lambda/calendar_service/
+
+# Temporary files
+tmp/
+*.tmp
+*.bak
+
+# Hidden build/config files (keep specific ones)
+.agentcore-runtime-arn
+.agentcore-a2a-arn
+.ecr-image-uri
+.gitleaksignore
+.ruff_cache/
+.bedrock_agentcore.yaml
+
+# Backup files
+*.bkp
+*.$*
+
+# Amazon Q CLI
+.amazonq/
+
+# CDK context (contains account-specific info)
+cdk_infra/cdk.context.json

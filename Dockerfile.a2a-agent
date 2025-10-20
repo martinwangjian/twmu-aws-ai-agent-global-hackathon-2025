@@ -1,0 +1,27 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY src/ ./src/
+COPY gateway_config.json .
+
+# Environment variables (overridden by ECS)
+ENV AWS_REGION=us-east-1
+ENV BEDROCK_MODEL_ID=us.amazon.nova-pro-v1:0
+ENV A2A_PUBLIC_URL=http://localhost:9000
+ENV PAYMENT_TRACKING_BUCKET=booking-agent-payments
+
+# Expose A2A port
+EXPOSE 9000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:9000/health')"
+
+# Run A2A agent
+CMD ["python", "-m", "src.agents.a2a_booking_agent"]

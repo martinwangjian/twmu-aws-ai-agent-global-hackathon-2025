@@ -1,0 +1,79 @@
+{
+  "restaurant": "La Bella Vita",
+  "allergen_policy": "We take food allergies seriously. Please inform your server of any allergies when ordering.",
+  "allergens": {
+    "gluten": {
+      "description": "Found in wheat, barley, rye, and related grains",
+      "gluten_free_options": true,
+      "notes": "We offer gluten-free pasta and pizza bases. Cross-contamination possible in kitchen."
+    },
+    "dairy": {
+      "description": "Milk and milk products including cheese, butter, cream",
+      "dairy_free_options": true,
+      "notes": "Vegan cheese available for pizzas and pasta dishes"
+    },
+    "eggs": {
+      "description": "Chicken eggs and egg products",
+      "egg_free_options": true,
+      "notes": "Many pasta dishes can be made without eggs"
+    },
+    "fish": {
+      "description": "All fish species",
+      "fish_free_options": true,
+      "notes": "Clearly marked on menu. Separate preparation area available upon request"
+    },
+    "shellfish": {
+      "description": "Shrimp, crab, lobster, and other crustaceans",
+      "shellfish_free_options": true,
+      "notes": "Seafood dishes clearly marked. Cross-contamination possible"
+    },
+    "mollusks": {
+      "description": "Mussels, clams, oysters, squid",
+      "mollusk_free_options": true,
+      "notes": "Only in specific seafood dishes"
+    },
+    "nuts": {
+      "description": "Tree nuts including almonds, walnuts, pistachios",
+      "nut_free_options": true,
+      "notes": "Pistachio gelato contains nuts. Other dishes can be made nut-free"
+    },
+    "soy": {
+      "description": "Soybeans and soy products",
+      "soy_free_options": true,
+      "notes": "Used in some vegan dishes as dairy substitute"
+    },
+    "sesame": {
+      "description": "Sesame seeds and sesame oil",
+      "sesame_free_options": true,
+      "notes": "Used in tahini dressing for Buddha Bowl"
+    }
+  },
+  "dietary_options": {
+    "vegetarian": {
+      "available": true,
+      "description": "Multiple vegetarian options including pasta, pizza, and salads"
+    },
+    "vegan": {
+      "available": true,
+      "description": "Dedicated vegan menu items with plant-based alternatives"
+    },
+    "gluten_free": {
+      "available": true,
+      "description": "Gluten-free pasta and pizza bases available"
+    },
+    "halal": {
+      "available": false,
+      "description": "Not currently certified halal"
+    },
+    "kosher": {
+      "available": false,
+      "description": "Not currently certified kosher"
+    }
+  },
+  "cross_contamination_warning": "While we take precautions, our kitchen handles all major allergens. We cannot guarantee 100% allergen-free meals.",
+  "contact": {
+    "phone": "+230 5555 1234",
+    "email": "info@labellavita.mu",
+    "note": "Please call ahead for severe allergies so we can prepare safely"
+  }
+}

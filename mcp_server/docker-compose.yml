@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  a2a-orchestrator:
+    build: .
+    container_name: a2a-orchestrator-mcp
+    stdin_open: true
+    tty: true
+    restart: unless-stopped

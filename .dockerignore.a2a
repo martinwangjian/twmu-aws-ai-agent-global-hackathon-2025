@@ -1,0 +1,42 @@
+# Exclude CDK infrastructure
+cdk_infra/
+cdk_infra/**
+
+# Exclude build artifacts
+*.pyc
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Exclude git
+.git/
+.github/
+
+# Exclude docs
+docs/
+*.md
+
+# Exclude tests
+tests/
+
+# Exclude scripts
+scripts/
+
+# Exclude data
+data/
+
+# Exclude lambda
+lambda/
+
+# Exclude config files
+.env
+.env.*
+*.log
+*.zip
+
+# Keep only what's needed
+!src/
+!mcp_server/
+!pyproject.toml
+!uv.lock

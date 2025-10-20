@@ -1,0 +1,76 @@
+title: AWS AI Agent System Architecture
+resources:
+  # User Layer
+  - type: Users
+    id: whatsapp-user
+    name: WhatsApp User
+
+  # AWS Services
+  - type: AWS::EndUserMessaging::PhoneNumber
+    id: whatsapp-channel
+    name: WhatsApp Channel
+
+  - type: AWS::SNS::Topic
+    id: sns-topic
+    name: Message Topic
+
+  - type: AWS::Lambda::Function
+    id: orchestrator
+    name: WhatsApp Orchestrator
+
+  - type: AWS::Bedrock::Agent
+    id: agentcore
+    name: AgentCore Runtime
+
+  - type: AWS::Bedrock::Model
+    id: bedrock-model
+    name: Nova Pro v1
+
+  - type: AWS::SecretsManager::Secret
+    id: secrets
+    name: WhatsApp Credentials
+
+  - type: AWS::CloudWatch::Logs
+    id: logs
+    name: CloudWatch Logs
+
+  - type: AWS::XRay::Trace
+    id: xray
+    name: X-Ray Tracing
+
+connections:
+  - from: whatsapp-user
+    to: whatsapp-channel
+    label: Send Message
+
+  - from: whatsapp-channel
+    to: sns-topic
+    label: Publish Event
+
+  - from: sns-topic
+    to: orchestrator
+    label: Trigger
+
+  - from: orchestrator
+    to: agentcore
+    label: Invoke Agent
+
+  - from: agentcore
+    to: bedrock-model
+    label: LLM Inference
+
+  - from: orchestrator
+    to: secrets
+    label: Get Credentials
+
+  - from: orchestrator
+    to: whatsapp-channel
+    label: Send Reply
+
+  - from: orchestrator
+    to: logs
+    label: Log Events
+
+  - from: orchestrator
+    to: xray
+    label: Trace Requests

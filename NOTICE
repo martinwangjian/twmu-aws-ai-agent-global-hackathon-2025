@@ -1,0 +1,66 @@
+AWS AI Agent Global Hackathon 2025 - WhatsApp Booking Bot
+Copyright (C) 2025 Teamwork Mauritius
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+================================================================================
+
+ATTRIBUTION
+
+This project was created for the AWS AI Agent Global Hackathon 2025.
+Team: Teamwork Mauritius
+Hackathon: https://aws-agent-hackathon.devpost.com/
+
+================================================================================
+
+THIRD-PARTY COMPONENTS
+
+This software includes the following third-party components:
+
+1. Amazon Web Services (AWS) SDK and Services
+   - AWS Bedrock
+   - AWS Lambda
+   - AWS CDK
+   - AWS End User Messaging
+   License: Apache License 2.0
+   https://aws.amazon.com/
+
+2. Strands Agents Framework
+   License: Apache License 2.0
+   https://github.com/strands-agents/strands-agents
+
+3. Python Dependencies (see pyproject.toml for complete list)
+   Various licenses (MIT, Apache 2.0, BSD)
+
+================================================================================
+
+TRADEMARK NOTICE
+
+AWS, Amazon Bedrock, and other AWS service names are trademarks of Amazon.com, Inc.
+or its affiliates. This project is not affiliated with, endorsed by, or sponsored
+by Amazon Web Services.
+
+================================================================================
+
+PATENT NOTICE
+
+This software may be subject to patents. The AGPL-3.0 license includes an express
+grant of patent rights from contributors to users.
+
+================================================================================
+
+CONTRIBUTION
+
+By contributing to this project, you agree that your contributions will be licensed
+under the GNU Affero General Public License v3.0.

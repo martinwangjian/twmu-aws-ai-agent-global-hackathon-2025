@@ -1,0 +1,25 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Install minimal dependencies only (not full project deps)
+COPY requirements-a2a.txt .
+RUN pip install --no-cache-dir -r requirements-a2a.txt
+
+# Copy agent code and MCP server
+COPY src/ ./src/
+COPY mcp_server/ ./mcp_server/
+
+# Create non-root user
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+
+# Expose A2A server port
+EXPOSE 9000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:9000/.well-known/agent-card.json')"
+
+# Run MCP server (for Claude Desktop integration)
+CMD ["python", "mcp_server/a2a_orchestrator_mcp.py"]

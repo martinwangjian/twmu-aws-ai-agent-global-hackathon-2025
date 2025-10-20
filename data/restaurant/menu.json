@@ -1,0 +1,141 @@
+{
+  "restaurant": "La Bella Vita",
+  "description": "Authentic Italian cuisine with modern twists, located in Port Louis, Mauritius",
+  "menu": [
+    {
+      "name": "Margherita Pizza",
+      "category": "Pizza",
+      "price": 12.99,
+      "description": "Classic tomato sauce, fresh mozzarella, basil, and extra virgin olive oil",
+      "allergens": ["gluten", "dairy"],
+      "dietary": ["vegetarian"],
+      "available": true
+    },
+    {
+      "name": "Vegan Buddha Bowl",
+      "category": "Salads",
+      "price": 14.99,
+      "description": "Quinoa, roasted vegetables, chickpeas, avocado, and tahini dressing",
+      "allergens": ["sesame"],
+      "dietary": ["vegan", "gluten-free"],
+      "available": true
+    },
+    {
+      "name": "Gluten-Free Pasta Primavera",
+      "category": "Pasta",
+      "price": 16.99,
+      "description": "Rice pasta with seasonal vegetables in light garlic olive oil",
+      "allergens": [],
+      "dietary": ["vegetarian", "gluten-free"],
+      "available": true
+    },
+    {
+      "name": "Grilled Salmon",
+      "category": "Seafood",
+      "price": 22.99,
+      "description": "Atlantic salmon with lemon butter sauce, served with roasted vegetables",
+      "allergens": ["fish", "dairy"],
+      "dietary": ["gluten-free"],
+      "available": true
+    },
+    {
+      "name": "Chicken Parmigiana",
+      "category": "Main Course",
+      "price": 18.99,
+      "description": "Breaded chicken breast with marinara sauce and melted mozzarella",
+      "allergens": ["gluten", "dairy"],
+      "dietary": [],
+      "available": true
+    },
+    {
+      "name": "Vegan Lasagna",
+      "category": "Pasta",
+      "price": 15.99,
+      "description": "Layers of pasta with plant-based ricotta, spinach, and marinara sauce",
+      "allergens": ["gluten", "soy"],
+      "dietary": ["vegan"],
+      "available": true
+    },
+    {
+      "name": "Caesar Salad",
+      "category": "Salads",
+      "price": 10.99,
+      "description": "Romaine lettuce, parmesan, croutons, and classic Caesar dressing",
+      "allergens": ["gluten", "dairy", "eggs", "fish"],
+      "dietary": [],
+      "available": true
+    },
+    {
+      "name": "Mushroom Risotto",
+      "category": "Risotto",
+      "price": 17.99,
+      "description": "Creamy arborio rice with porcini mushrooms and parmesan",
+      "allergens": ["dairy"],
+      "dietary": ["vegetarian", "gluten-free"],
+      "available": true
+    },
+    {
+      "name": "Tiramisu",
+      "category": "Desserts",
+      "price": 7.99,
+      "description": "Classic Italian dessert with espresso-soaked ladyfingers and mascarpone",
+      "allergens": ["gluten", "dairy", "eggs"],
+      "dietary": ["vegetarian"],
+      "available": true
+    },
+    {
+      "name": "Vegan Chocolate Cake",
+      "category": "Desserts",
+      "price": 6.99,
+      "description": "Rich chocolate cake made without dairy or eggs",
+      "allergens": ["gluten", "soy"],
+      "dietary": ["vegan"],
+      "available": true
+    },
+    {
+      "name": "Caprese Salad",
+      "category": "Appetizers",
+      "price": 9.99,
+      "description": "Fresh mozzarella, tomatoes, basil, and balsamic glaze",
+      "allergens": ["dairy"],
+      "dietary": ["vegetarian", "gluten-free"],
+      "available": true
+    },
+    {
+      "name": "Bruschetta",
+      "category": "Appetizers",
+      "price": 8.99,
+      "description": "Toasted bread with diced tomatoes, garlic, basil, and olive oil",
+      "allergens": ["gluten"],
+      "dietary": ["vegan"],
+      "available": true
+    },
+    {
+      "name": "Seafood Linguine",
+      "category": "Pasta",
+      "price": 24.99,
+      "description": "Linguine with shrimp, mussels, and calamari in white wine sauce",
+      "allergens": ["gluten", "shellfish", "mollusks"],
+      "dietary": [],
+      "available": true
+    },
+    {
+      "name": "Eggplant Parmigiana",
+      "category": "Main Course",
+      "price": 16.99,
+      "description": "Breaded eggplant layers with marinara and mozzarella",
+      "allergens": ["gluten", "dairy"],
+      "dietary": ["vegetarian"],
+      "available": true
+    },
+    {
+      "name": "Gelato Selection",
+      "category": "Desserts",
+      "price": 5.99,
+      "description": "Choice of vanilla, chocolate, strawberry, or pistachio gelato",
+      "allergens": ["dairy", "nuts"],
+      "dietary": ["vegetarian", "gluten-free"],
+      "available": true
+    }
+  ]
+}
