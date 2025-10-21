@@ -202,14 +202,14 @@ A typical restaurant spends 20 minutes per booking manually. At $45/hour labor c
 
 ### Resource Efficiency
 
-| Metric                    | Value              | Comparison         |
-| ------------------------- | ------------------ | ------------------ |
-| **Response Time**         | 2 seconds          | vs 2 hours (phone) |
-| **Concurrent Capacity**   | 1000+ users        | vs 1-2 (manual)    |
-| **Availability**          | 99.9% (24/7)       | vs 33% (8hr/day)   |
-| **Cost per Transaction**  | $0.10              | vs $15.00 (manual) |
-| **Setup Time**            | 10 minutes         | vs weeks (custom)  |
-| **Maintenance**           | Zero (serverless)  | vs daily (servers) |
+| Metric                   | Value             | Comparison         |
+| ------------------------ | ----------------- | ------------------ |
+| **Response Time**        | 2 seconds         | vs 2 hours (phone) |
+| **Concurrent Capacity**  | 1000+ users       | vs 1-2 (manual)    |
+| **Availability**         | 99.9% (24/7)      | vs 33% (8hr/day)   |
+| **Cost per Transaction** | $0.10             | vs $15.00 (manual) |
+| **Setup Time**           | 10 minutes        | vs weeks (custom)  |
+| **Maintenance**          | Zero (serverless) | vs daily (servers) |
 
 ### Real-World Performance
 
@@ -310,12 +310,14 @@ SNS Topic → Lambda Orchestrator
 ### Core Agent Infrastructure
 
 **Amazon Bedrock AgentCore** (Generally Available)
+
 - **AgentCore Runtime**: Serverless agent execution with automatic scaling
 - **AgentCore Memory**: Persistent semantic memory with actor isolation
 - **AgentCore Gateway**: Unified tool integration layer
 - **Why AgentCore?** Production-ready agent infrastructure that handles the undifferentiated heavy lifting—memory management, tool orchestration, and scaling—so developers can focus on agent logic.
 
 **Amazon Bedrock Nova Pro**
+
 - Advanced reasoning LLM with function calling
 - Native integration with AgentCore primitives
 - Optimized for agentic workflows (reason, plan, act)
@@ -323,18 +325,21 @@ SNS Topic → Lambda Orchestrator
 ### Open Protocols for Agent Interoperability
 
 **A2A Protocol** (Agent-to-Agent Communication)
+
 - **Discovery**: Agents find each other via standardized endpoints
 - **Negotiation**: Structured communication for booking, preferences, constraints
 - **Execution**: Autonomous task completion across agent boundaries
 - **Why A2A?** Enables true agent autonomy. Your personal AI can discover and negotiate with any A2A-compatible service without human intervention. This is the foundation of the agentic era.
 
 **AP2 Protocol** (Agents-to-Payments)
+
 - **Agent-native payments**: Stablecoin transactions designed for AI agents
 - **x402 HTTP status code**: Standard payment-required response for agents
 - **Human-in-the-loop**: Payment approval before execution
 - **Why AP2?** Agents need a payment standard. AP2 enables autonomous commerce while maintaining human control over financial decisions. Built on stablecoins for instant, low-cost settlements.
 
 **MCP Protocol** (Model Context Protocol)
+
 - Local agent orchestration from Claude Desktop
 - Secure communication between user AI and service agents
 - Context sharing across agent boundaries
@@ -354,21 +359,7 @@ SNS Topic → Lambda Orchestrator
 
 ### Demo Video
 
-**[Watch Demo Video](YOUR_YOUTUBE_LINK_HERE)** - Complete system walkthrough (5-7 minutes)
-
-**⚠️ Recording Note**: This demo was recorded during an AWS service outage affecting AgentCore and End User Messaging services in us-east-1 region (October 20, 2025). The system is fully functional and screenshots show actual working interactions. We will update with a live demo once AWS services are restored.
-
-**What the video demonstrates**:
-- ✅ Complete architecture using AgentCore primitives (Runtime, Memory, Gateway)
-- ✅ WhatsApp booking flow with knowledge base and calendar integration
-- ✅ A2A agent-to-agent communication with autonomous discovery
-- ✅ AP2 payment protocol with human-in-the-loop approval
-- ✅ AgentCore Memory persistence across sessions
-- ✅ Autonomous reasoning and planning (calendar conflict resolution)
-
-**System Status**: All infrastructure deployed and tested. Temporarily affected by AWS service issues. Screenshots captured from working system before outage.
-
----
+**[Watch the full demo on YouTube](https://youtu.be/Y0EdjH65IIQ)** - See autonomous agents in action (2 minutes)
 
 ### WhatsApp Path Screenshots
 
@@ -376,13 +367,13 @@ SNS Topic → Lambda Orchestrator
 
 ![WhatsApp Info Query](docs/demo/whatsapp/info.png)
 
-*Customer asks about vegetarian options and lactose intolerance. Agent instantly provides detailed menu information with allergen details from the knowledge base.*
+_Customer asks about vegetarian options and lactose intolerance. Agent instantly provides detailed menu information with allergen details from the knowledge base._
 
 **Automated Booking - Calendar Integration**
 
 ![WhatsApp Booking](docs/demo/whatsapp/booking.png)
 
-*Customer books a table for 3 people. Agent checks Google Calendar availability, creates the appointment, and confirms the booking. Five minutes later, the customer cancels - the agent remembers their name and phone number from the previous conversation, demonstrating AgentCore Memory persistence.*
+_Customer books a table for 3 people. Agent checks Google Calendar availability, creates the appointment, and confirms the booking. Five minutes later, the customer cancels - the agent remembers their name and phone number from the previous conversation, demonstrating AgentCore Memory persistence._
 
 ### A2A Protocol (Agent-to-Agent)
 
@@ -392,49 +383,49 @@ SNS Topic → Lambda Orchestrator
 
 ![Customer Calendar Before](docs/demo/a2a/1-customer-calendar-before.png)
 
-*Customer has existing event at 7:00 PM on Friday, October 24th*
+_Customer has existing event at 7:00 PM on Friday, October 24th_
 
 **2. Restaurant Calendar - Before Booking**
 
 ![Restaurant Calendar Before](docs/demo/a2a/2-restaurant-calendar-before.png)
 
-*Restaurant has multiple bookings on Monday, October 20th - showing existing reservations*
+_Restaurant has multiple bookings on Monday, October 20th - showing existing reservations_
 
 **3. Customer Delegates Task to Claude**
 
 ![Customer Delegates Booking](docs/demo/a2a/3-customer-delegate-booking-tasks.png)
 
-*"I'm planning a romantic dinner in Mauritius next Friday evening for 2 people. We love Italian food and need vegetarian options. Can you help me find and book a restaurant?" - Claude's a2a-orchestrator MCP tool is enabled*
+_"I'm planning a romantic dinner in Mauritius next Friday evening for 2 people. We love Italian food and need vegetarian options. Can you help me find and book a restaurant?" - Claude's a2a-orchestrator MCP tool is enabled_
 
 **4. Claude Uses Tools - Calendar Check & Restaurant Discovery**
 
 ![Claude Uses Tools](docs/demo/a2a/4-claude-use-tools-to-find-availability-discover-resto.png)
 
-*Claude autonomously: (1) Searches customer's calendar, (2) Reconciles scheduling conflicts, (3) Discovers restaurants via A2A protocol, (4) Identifies La Bella Vita with Italian cuisine, vegetarian options, romantic ambiance, and ocean view*
+_Claude autonomously: (1) Searches customer's calendar, (2) Reconciles scheduling conflicts, (3) Discovers restaurants via A2A protocol, (4) Identifies La Bella Vita with Italian cuisine, vegetarian options, romantic ambiance, and ocean view_
 
 **5. Claude Finds 8 PM Slot & Requests Deposit**
 
 ![Claude Finds Time and Asks Deposit](docs/demo/a2a/5-claude-find-8pm-resto-ask-deposit.png)
 
-*Claude books 8:00 PM (after customer's 7:30 PM commitment) and presents payment requirement: $10 USDC deposit via AP2 protocol with 15-minute expiration*
+_Claude books 8:00 PM (after customer's 7:30 PM commitment) and presents payment requirement: $10 USDC deposit via AP2 protocol with 15-minute expiration_
 
 **6. Human-in-the-Loop - Payment Approval**
 
 ![User Approves Payment](docs/demo/a2a/6-user-approve-payment.png)
 
-*Customer approves payment - demonstrating human-in-the-loop control over financial decisions*
+_Customer approves payment - demonstrating human-in-the-loop control over financial decisions_
 
 **7. Payment Processed & Booking Confirmed**
 
 ![Booking Confirmation](docs/demo/a2a/7-claude-trigger-payment-got-booking-confirmation.png)
 
-*Payment processed via blockchain (Transaction Hash: 0xdemoo71r162j). Booking confirmed with all details: La Bella Vita, Friday 8:00 PM, 2 guests, window-side ocean view, vegetarian options*
+_Payment processed via blockchain (Transaction Hash: 0xdemoo71r162j). Booking confirmed with all details: La Bella Vita, Friday 8:00 PM, 2 guests, window-side ocean view, vegetarian options_
 
 **8. Restaurant Calendar - After Booking**
 
 ![Restaurant Calendar After](docs/demo/a2a/8-resto-calendar-after.png)
 
-*New reservation appears in restaurant's calendar on Friday, October 24th at 8:00 PM - "Reservation - 2 guests, window side with ocean view, vegetarian options"*
+_New reservation appears in restaurant's calendar on Friday, October 24th at 8:00 PM - "Reservation - 2 guests, window side with ocean view, vegetarian options"_
 
 **Key Capabilities Demonstrated:**
 
@@ -500,6 +491,7 @@ aws s3 cp ./menu.json s3://your-bucket/restaurant-info.json
 **Agent-to-agent booking reduces customer service costs** (no phone calls, instant responses). But this creates a new problem: **no-show bookings**.
 
 **Solution**: Require a small deposit via x402 protocol when booking through agents. This:
+
 - Protects restaurant owners from cancellation losses
 - Creates a win-win economic model for autonomous commerce
 - Maintains human control over financial decisions (human-in-the-loop)
@@ -617,6 +609,7 @@ Key learnings:
 **2 weeks. 1 developer. AWS primitives.**
 
 **Week 1: WhatsApp Path**
+
 - Deployed AgentCore Runtime with Strands Agent framework
 - Integrated AWS End User Messaging (Social) for WhatsApp (2B users)
 - Built knowledge base with restaurant info (menu, allergens, sustainability)
@@ -624,6 +617,7 @@ Key learnings:
 - Implemented AgentCore Memory for conversation persistence
 
 **Week 2: A2A Path**
+
 - Built A2A protocol handler with Cognito OAuth
 - Created MCP server for Claude Desktop integration
 - Implemented agent discovery and negotiation flows
@@ -631,6 +625,7 @@ Key learnings:
 - Deployed with AWS CDK (infrastructure as code)
 
 **Architecture decisions**:
+
 - Serverless-first: Lambda + AgentCore Runtime (zero idle costs)
 - Memory-first: AgentCore Memory with semantic search (not just chat history)
 - Protocol-first: A2A and AP2 for agent interoperability (not proprietary APIs)
@@ -660,6 +655,7 @@ Challenge: AP2 + x402 is a new standard. No existing libraries. How do we demons
 Challenge: How do you test agents that make autonomous decisions? Traditional unit tests don't capture emergent behavior.
 
 **Solution**: Multi-layer testing strategy:
+
 - Unit tests for tools and memory
 - Integration tests for A2A endpoints
 - E2E tests for complete booking flows
@@ -670,47 +666,6 @@ Challenge: How do you test agents that make autonomous decisions? Traditional un
 Challenge: We're building for the agentic era (5-year vision) but need to work today (hackathon demo).
 
 **Solution**: Transparent implementation status. We clearly document what's production-ready (WhatsApp bot, memory, calendar) vs what's demo (hardcoded discovery, payment placeholders). Judges see both the working system and the future vision.
-
----
-
-## Known Issues & AWS Service Status
-
-### Current Status (October 20, 2025)
-
-**AWS Service Outage Impact**: We are experiencing issues with AWS services in us-east-1 region:
-
-1. **AgentCore A2A Runtime** - HTTP 424 "Failed Dependency" errors
-   - **Root Cause**: OAuth authorization mismatch at AgentCore platform layer
-   - **Evidence**: Runtime logs show healthy health checks, no application errors
-   - **Status**: Platform configuration issue, not application code
-
-2. **WhatsApp Message Processing** - Messages not reaching AgentCore
-   - **Root Cause**: AWS End User Messaging service disruption
-   - **Evidence**: Lambda receives events but message payload not processed
-   - **Status**: Infrastructure issue during AWS outage
-
-### System Verification
-
-**What's Working**:
-- ✅ All infrastructure deployed (CloudFormation stacks healthy)
-- ✅ AgentCore runtimes responding to health checks
-- ✅ Lambda functions executing without errors
-- ✅ SNS topics and subscriptions configured correctly
-- ✅ Cognito authentication working (tokens generated successfully)
-
-**Evidence of Working System**:
-- ✅ Screenshots captured from actual working interactions
-- ✅ CloudWatch logs show successful executions before outage
-- ✅ Calendar integration tested and verified
-- ✅ Memory persistence demonstrated in screenshots
-
-### For Judges
-
-The system was fully functional before the AWS service disruption. All screenshots in this README are from actual working interactions. The architecture is sound, the code is tested, and the deployment is complete.
-
-We will update the demo video with live interactions once AWS services are restored.
-
-**Verification**: You can review CloudWatch logs showing healthy runtime execution and our comprehensive test suite demonstrating functionality.
 
 ---
 
@@ -777,6 +732,7 @@ uv run pytest --cov=src tests/
 ```
 
 **Test Coverage:**
+
 - **Unit tests**: SSM config, response cleaning
 - **Integration tests**: A2A endpoints, BDD scenarios (Gherkin)
 - **E2E tests**: Booking flow, calendar tools, memory, hallucination prevention
