@@ -1,9 +1,5 @@
 # AWS AI Agent Global Hackathon 2025
 
-> **"We're entering the agentic era of AI."**
->
-> — Swami Sivasubramanian, AWS VP of AI & Data
-
 **Team**: Teamwork Mauritius
 
 ---
@@ -68,19 +64,19 @@ Our team witnessed the PC revolution. The Internet. Smartphones. Cloud computing
 
 ## Why Now?
 
-**Three AWS primitives converged in 2024:**
+**Three technologies converged in 2025:**
 
-1. **Amazon Bedrock AgentCore**: Serverless agents with memory, reasoning, and scale
-2. **A2A Protocol**: Agents discover and communicate autonomously
-3. **AP2 + x402**: Agent-native payments with stablecoins
+1. **Amazon Bedrock AgentCore** (AWS, GA October 2025): Serverless agents with memory, reasoning, and scale
+2. **A2A Protocol** (Open Standard): Agents discover and communicate autonomously
+3. **AP2 + x402** (Open Standard): Agent-native payments with stablecoins
 
-**Before 2024**: You needed a team of 10 engineers, 6 months, and $500K to build this.
+**Before 2025**: You needed a team of 10 engineers, 6 months, and $500K to build this.
 
 **Today**: One developer, 2 weeks, $100/month on AWS.
 
 **That's a 5000x improvement in efficiency.**
 
-This is the iPhone moment for AI agents. The building blocks are here. Scalable. Secure.
+This is the iPhone moment for AI agents. The building blocks are here. Scalable. Secure. **Open.**
 
 ---
 
@@ -222,17 +218,23 @@ Based on testing with 1000 bookings/month:
 
 ---
 
-## Built on AWS Primitives
+## Built on AWS Primitives & Open Standards
 
-**What makes this possible:**
+**AWS Primitives:**
 
-- ✅ **Amazon Bedrock AgentCore**: Serverless runtime with memory
+- ✅ **Amazon Bedrock AgentCore Runtime**: Serverless agent execution
 - ✅ **Amazon Bedrock Nova Pro**: Reasoning LLM
 - ✅ **AgentCore Memory**: Semantic search across sessions
 - ✅ **AgentCore Gateway**: Tool integration
+- ✅ **AgentCore Identity**: Secure authentication and access management
+- ✅ **AgentCore Observability**: Real-time monitoring via OpenTelemetry
+- ✅ **AWS CDK**: Infrastructure as code
+
+**Open Standards:**
+
 - ✅ **A2A Protocol**: Agent discovery and communication
 - ✅ **AP2 + x402**: Agent-native payments
-- ✅ **AWS CDK**: Infrastructure as code
+- ✅ **MCP Protocol**: Model Context Protocol (Claude Desktop)
 
 **Deployed and tested:**
 
@@ -240,6 +242,7 @@ Based on testing with 1000 bookings/month:
 - ✅ A2A protocol (Claude Desktop)
 - ✅ Memory persistence (actor isolation)
 - ✅ Payment integration (human-in-loop)
+- ✅ OpenTelemetry tracing (CloudWatch)
 - ✅ 50+ documentation files
 
 ---
@@ -441,6 +444,22 @@ _New reservation appears in restaurant's calendar on Friday, October 24th at 8:0
 
 ---
 
+## For Hackathon Judges - Quick Testing
+
+**We've prepared a complete testing package for you.**
+
+A `judge-test-package.zip` file has been uploaded containing:
+- Pre-configured credentials for instant testing
+- Setup scripts for one-command installation
+- Test prompts for WhatsApp and A2A paths
+- Complete testing instructions
+
+**See the README inside the zip for all resources and step-by-step instructions.**
+
+Alternatively, watch the [2-minute demo video](https://youtu.be/Y0EdjH65IIQ) or review the [detailed screenshots](#demo--screenshots) below.
+
+---
+
 ## For Restaurant Owners: Easy Menu Updates
 
 **Want to update your menu or restaurant information?**
@@ -630,6 +649,16 @@ Key learnings:
 - Memory-first: AgentCore Memory with semantic search (not just chat history)
 - Protocol-first: A2A and AP2 for agent interoperability (not proprietary APIs)
 
+**Deployment strategy**:
+
+AgentCore is so new (GA October 2025) that we used the right tool for each layer:
+
+- **AWS CDK**: Stateful resources (Lambda, S3, SNS, Cognito)
+- **Strands Agents SDK**: AgentCore Runtime deployment (not yet in CDK)
+- **boto3**: Preview features (End User Messaging Social - not in CloudFormation)
+
+This pragmatic approach let us ship in 2 weeks instead of waiting for full CDK support.
+
 ### Challenges We Faced
 
 **1. Memory Persistence Across Sessions**
@@ -707,13 +736,26 @@ cp .env.example .env
 
 **Deployment time**: ~10 minutes
 
-### 4. Test WhatsApp
+### 4. Verify Deployment
+
+```bash
+./scripts/verify-deployment.sh
+```
+
+**Checks:**
+
+- ✅ AWS credentials and region
+- ✅ CDK stacks deployed
+- ✅ AgentCore Runtime active
+- ✅ Lambda functions running
+
+### 5. Test WhatsApp
 
 ```bash
 ./scripts/test.sh
 ```
 
-### 5. Run Tests
+### 6. Run Tests
 
 ```bash
 # All tests
@@ -740,7 +782,7 @@ uv run pytest --cov=src tests/
 
 See [tests/README.md](tests/README.md) for details.
 
-### 6. A2A Setup (Optional - for Claude Desktop)
+### 7. A2A Setup (Optional - for Claude Desktop)
 
 ```bash
 # Get 60-day refresh token
